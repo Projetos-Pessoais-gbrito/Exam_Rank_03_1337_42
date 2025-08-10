@@ -6,7 +6,7 @@
 /*   By: gustavo-linux <gustavo-linux@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:54:29 by gustavo-lin       #+#    #+#             */
-/*   Updated: 2025/08/05 01:18:12 by gustavo-lin      ###   ########.fr       */
+/*   Updated: 2025/08/10 17:04:48 by gustavo-lin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,54 @@ char *ft_strdup(char *cpy)
 	return (destiny);
 }
 
-char	*brk_gnl(int fd)
+// char	*brk_gnl(int fd)
+// {
+// 	static char buffer[BUFFER_SIZE];
+// 	char		line[70000];
+// 	static int	read_pos;
+// 	static int	read_b;
+// 	int 		i;
+
+// 	i = 0;
+// 	if (fd < 0 || BUFFER_SIZE < 0)
+// 		return NULL;
+// 	while(1)
+// 	{
+// 		if (read_b <= read_pos)
+// 		{
+// 			read_b = read(fd, buffer, BUFFER_SIZE);
+// 			read_pos = 0;
+// 			if (read_b <= 0)
+// 				break;
+// 		}
+// 		line[i++] = buffer[read_pos++];
+// 		if (buffer[read_pos - 1] == '\n')
+// 			break;
+// 	}
+// 	line[i] = '\0';
+// 	if (i == 0)
+// 		return (NULL);
+// 	return (ft_strdup(line));
+// }
+
+char *brk_gnl(int fd)
 {
 	static char buffer[BUFFER_SIZE];
-	char		line[70000];
 	static int	read_pos;
 	static int	read_b;
-	int 		i;
+	char	line[70000];
+	int		i;
 
 	i = 0;
-	if (fd < 0 || BUFFER_SIZE < 0)
+	if(fd < 0 || BUFFER_SIZE < 0)
 		return NULL;
-	while(1)
+	while (1)
 	{
-		if (read_b <= read_pos)
+		if(read_b <= read_pos)
 		{
 			read_b = read(fd, buffer, BUFFER_SIZE);
 			read_pos = 0;
-			if (read_b <= 0)
+			if(read_b <= 0)
 				break;
 		}
 		line[i++] = buffer[read_pos++];
@@ -64,8 +94,8 @@ char	*brk_gnl(int fd)
 	}
 	line[i] = '\0';
 	if (i == 0)
-		return (NULL);
-	return (ft_strdup(line));
+		return NULL;
+	return ft_strdup(line);
 }
 
 int main(void)

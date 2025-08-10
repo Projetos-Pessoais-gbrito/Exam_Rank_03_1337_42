@@ -22,7 +22,6 @@ int	check(int *board, int col, int row)
 	{
 		if(board[x] == row || board[x] - row == col - x || row - board[x] == col - x)
 			return 1;
-
 	}
 	return 0;
 }
@@ -41,12 +40,9 @@ void	solve(int *board, int col, int n)
 			board[col] = row;
 			solve(board, col + 1, n);
 		}
-
 	}
 
 }
-
-
 
 int main(int ac, char **av)
 {
@@ -56,6 +52,4 @@ int main(int ac, char **av)
 
 	solve(board, 0, n);
 	free(board);
-
-
 }
