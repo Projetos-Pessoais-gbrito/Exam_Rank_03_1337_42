@@ -3,55 +3,49 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-int	calcul(int *nums, int n)
+int	calcul(int *subset, int subsize)
 {
 	int sum = 0;
-	for(int x = 0; x < n; x++)
+	for(int x = 0; x < subsize; x++)
 	{
-		sum += nums[x];
-
+		sum += subset[x];
 	}
 	return sum;
 }
 
-void	print(int *nums, int n)
+void	print(int *subset, int subsize)
 {
-	for(int x = 0; x < n; x++)
+	for(int x = 0; x < subsize; x++)
 	{
-		printf("%d", nums[x]);
-		if(x < n -1 )
+		printf("%d", subset[x]);
+		if(x < subsize - 1 )
 			printf(" ");
-
 	}
 	printf("\n");
 }
 
-void	solve(int *nums, int *subset, int size, int n, int subsize, int level)
+void solve(int *nums, int *subset, int size, int n, int subsize, int level)
 {
-	if(level == size)
+	if (level == size)
 	{
-		if(calcul(subset, subsize) == n)
+		if (calcul(subset, subsize) == n)
 			print(subset, subsize);
-		return ;
+		return;
 	}
 	subset[subsize] = nums[level];
 	solve(nums, subset, size, n, subsize + 1, level + 1);
 	solve(nums, subset, size, n, subsize, level + 1);
-
-
 }
 
-int main(int ac, char **av)
+int main(int argc, char **argv)
 {
-	int n = atoi(av[1]);
-	int size = ac - 2;
-	int *nums  = malloc(sizeof(int) * size);
-	int *subset  = malloc(sizeof(int) * size);
-	for(int x = 0; x < size; x++)
-		nums[x] = atoi(av[x + 2]);
+	int size = argc - 2;
+	int *subset = malloc(sizeof(int) * size);
+	int *nums = malloc(sizeof(int) * size);
+	int n = atoi(argv[1]);
+	for (int i = 0; i < size; i++)
+		nums[i] = atoi(argv[i + 2]);
 	solve(nums, subset, size, n, 0, 0);
-	free(nums);
 	free(subset);
+	free(nums);
 }
